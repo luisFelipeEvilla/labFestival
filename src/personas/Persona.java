@@ -3,9 +3,9 @@ package personas;
 
 public abstract class Persona {
     private String nombre;
-    private String identificacion;
+    private int identificacion;
 
-    public Persona(String nombre, String identificacion) {
+    public Persona(String nombre, int identificacion) {
         this.nombre = nombre;
         this.identificacion = identificacion;
     }
@@ -18,11 +18,11 @@ public abstract class Persona {
         this.nombre = nombre;
     }
 
-    public String getIdentificacion() {
+    public int getIdentificacion() {
         return identificacion;
     }
 
-    private void setIdentificacion(String identificacion) {
+    private void setIdentificacion(int identificacion) {
         this.identificacion = identificacion;
     }
 }

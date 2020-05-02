@@ -3,7 +3,7 @@ package personas;
 
 public class Patrocinador extends Persona {
     
-    public Patrocinador(String nombre, String identificacion, float presupuesto) {
+    public Patrocinador(String nombre, int identificacion) {
         super(nombre, identificacion);
     }
 }
