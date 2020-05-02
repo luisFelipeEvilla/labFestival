@@ -20,7 +20,6 @@ public class Escenario {
         this.link = link;
     }
 
-    
     public boolean addbanda(Banda nueva) {
         boolean creada = false;
 
@@ -43,6 +42,87 @@ public class Escenario {
         }
 
         return creada;
+    }
+    
+    public void ordenarBandasDescente() {
+
+        boolean cambio;
+        do {
+            Banda actual = bandas;
+            Banda anterior = null;
+            Banda siguiente = actual.getLink();
+            cambio = false;
+            while (siguiente != null) {
+                if (actual.getNumFans() > siguiente.getNumFans()) {
+                    cambio = true;
+                    if (anterior != null) {
+                        Banda aux = siguiente.getLink();
+                        anterior.setLink(siguiente);
+                        siguiente.setLink(actual);
+                        actual.setLink(aux);
+                    } else {
+                        Banda aux = siguiente.getLink();
+                        bandas = siguiente;
+                        siguiente.setLink(actual);
+                        actual.setLink(aux);
+                    }
+
+                    anterior = siguiente;
+                    siguiente = siguiente.getLink();
+                } else {
+                    anterior = actual;
+                    actual = siguiente;
+                    siguiente = siguiente.getLink();
+                }
+            }
+        } while (cambio);
+    }
+    
+    public void ordenarBandasAscendente() {
+
+        boolean cambio;
+        do {
+            Banda actual = bandas;
+            Banda anterior = null;
+            Banda siguiente = actual.getLink();
+            cambio = false;
+            while (siguiente != null) {
+                if (actual.getNumFans() < siguiente.getNumFans()) {
+                    cambio = true;
+                    if (anterior != null) {
+                        Banda aux = siguiente.getLink();
+                        anterior.setLink(siguiente);
+                        siguiente.setLink(actual);
+                        actual.setLink(aux);
+                    } else {
+                        Banda aux = siguiente.getLink();
+                        bandas = siguiente;
+                        siguiente.setLink(actual);
+                        actual.setLink(aux);
+                    }
+
+                    anterior = siguiente;
+                    siguiente = siguiente.getLink();
+                } else {
+                    anterior = actual;
+                    actual = siguiente;
+                    siguiente = siguiente.getLink();
+                }
+            }
+        } while (cambio);
+    }
+    
+    public Banda getBanda(String nombre) {
+        Banda b = bandas;
+        
+        while (b != null) {
+            if (b.getNombre().equals(nombre)) {
+                return b;
+            } else {
+                b = b.getLink();
+            }
+        }
+        return b;
     }
 
     public Escenario getUltimoEscenario() {

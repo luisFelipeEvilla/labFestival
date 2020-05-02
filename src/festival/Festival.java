@@ -79,6 +79,18 @@ public class Festival {
 
         return ultimo;
     }
+    
+    public float calCostosTotales() {
+        int acum = 0;
+        Escenario e = escenarios;
+        
+        while (e != null) {
+           acum += e.getPresupuestoInicial() - e.getPresupuestoActual();
+           e = e.getLink();
+        }
+        
+        return acum;
+    }
 
     public static void main(String[] args) {
         Festival app = new Festival(null, "Musica");
@@ -102,9 +114,22 @@ public class Festival {
         if(app.escenarios.addbanda(new Banda("Los del sur", 400, 6, (float) 800.3))) {
             System.out.println("Banda creada exitosamente");
         }
-        if(app.escenarios.addbanda(new Banda("Los del este", 100, 2, (float) 100000))) {
+        if(app.escenarios.addbanda(new Banda("Los del este", 600, 2, (float) 100))) {
             System.out.println("Banda creada exitosamente");
         }
+        if(app.escenarios.addbanda(new Banda("Los del oeste", 100, 2, (float) 200))) {
+            System.out.println("Banda creada exitosamente");
+        }
+        app.escenarios.ordenarBandasDescente();
+        
+        Banda b = app.escenarios.getBandas();
+        
+        while (b != null) {
+            System.out.println(b.getNombre() + ", con " +b.getNumFans() + " fans");
+            b = b.getLink();
+        }
+        
+        System.out.println("El costo total del evento fue: " + app.calCostosTotales());
         
     }
 
