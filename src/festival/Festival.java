@@ -1,9 +1,10 @@
 package festival;
 
+import static java.lang.System.out;
 import nodos.Banda;
 import nodos.Escenario;
 import personas.Patrocinador;
-
+import graficos.Home;
 public class Festival {
 
     private Escenario escenarios;
@@ -27,7 +28,7 @@ public class Festival {
             Patrocinador p = new Patrocinador("Pepito", numero);
             creado = addEscenario(new Escenario(numero, presupuesto, p, null, null));
             if (creado) {
-                System.out.println("Escenario creado Exitosamente");
+                out.println("Escenario creado Exitosamente");
             }
             numero ++;
         }
@@ -46,7 +47,7 @@ public class Festival {
                     int idNuevo = nuevo.getPatrocinador().getIdentificacion();
                     if (id == idNuevo) {
                         repetido = true;
-                        System.out.println("Error, dos escenarios no pueden tener el mismo patrocinador");
+                        out.println("Error, dos escenarios no pueden tener el mismo patrocinador");
                         break;
                     }
                     e = e.getLink();
@@ -58,7 +59,7 @@ public class Festival {
                     creado = true;
                 }
             }  else {
-                System.out.println("Error, no se pueden crear más de 5 escenarios");
+                out.println("Error, no se pueden crear más de 5 escenarios");
             }
         } else {
             creado = true;
@@ -93,44 +94,47 @@ public class Festival {
     }
 
     public static void main(String[] args) {
-        Festival app = new Festival(null, "Musica");
-
+        Home app = new Home();
+        app.setVisible(true);
+        
+        /*
         app.populate();
         Escenario e = app.escenarios;
         
         // Imprime el número de cada uno de los escenarios
         while (e != null) {
-            System.out.println("Escenario " + e.getNumero());
+            out.println("Escenario " + e.getNumero());
             e = e.getLink();
         }
-        
+        **/
         
         /*Añadiendo nuevas bandas, falta probar casos, como que el escenario
           haya alcanzado el número máximo de bandas
         **/
-        if(app.escenarios.addbanda(new Banda("Los del Norte", 200, 5, (float) 350.3))) {
-            System.out.println("Banda creada exitosamente");
+        /*
+        if(app.) {
+            out.println("Banda creada exitosamente");
         }
-        if(app.escenarios.addbanda(new Banda("Los del sur", 400, 6, (float) 800.3))) {
-            System.out.println("Banda creada exitosamente");
+        if(app.) {
+            out.println("Banda creada exitosamente");
         }
         if(app.escenarios.addbanda(new Banda("Los del este", 600, 2, (float) 100))) {
-            System.out.println("Banda creada exitosamente");
+            out.println("Banda creada exitosamente");
         }
-        if(app.escenarios.addbanda(new Banda("Los del oeste", 100, 2, (float) 200))) {
-            System.out.println("Banda creada exitosamente");
+        if(app.escenarios.addbanda(new Banda("Los del oeste", 100, 2, (float) 10))) {
+            out.println("Banda creada exitosamente");
         }
         app.escenarios.ordenarBandasDescente();
         
         Banda b = app.escenarios.getBandas();
         
         while (b != null) {
-            System.out.println(b.getNombre() + ", con " +b.getNumFans() + " fans");
+            out.println(b.getNombre() + ", con " +b.getNumFans() + " fans");
             b = b.getLink();
         }
         
-        System.out.println("El costo total del evento fue: " + app.calCostosTotales());
-        
+        out.println("El costo total del evento fue: " + app.calCostosTotales());
+        **/
     }
 
 }

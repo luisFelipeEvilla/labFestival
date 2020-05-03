@@ -1,5 +1,6 @@
 package nodos;
 
+import static java.lang.System.out;
 import personas.Patrocinador;
 
 public class Escenario {
@@ -19,7 +20,23 @@ public class Escenario {
         this.bandas = bandas;
         this.link = link;
     }
+    
+    public float getCostos() {
+        float acum = 0;
+        Banda b = bandas;
+        
+        while (b != null) {
+            acum += b.getCosto();
+            b = b.getLink();
+        }
+        
+        return acum;
+    }
 
+    /* 
+        Agrega una nueva banda a la lista, y enseguida ordena la lista de forma descendente
+        según el número de fans de cada banda
+    */
     public boolean addbanda(Banda nueva) {
         boolean creada = false;
 
@@ -35,10 +52,10 @@ public class Escenario {
                 presupuestoActual = presupuestoActual - nueva.getCosto();
                 creada = true;
             } else {
-                System.out.println("El escenario ya cuenta con el número máximo de bandas permitidas");
+                out.println("El escenario ya cuenta con el número máximo de bandas permitidas");
             }
         } else {
-            System.out.println("El escenario no cuenta con el dinero suficiente para contratar a la banda");
+            out.println("El escenario no cuenta con el dinero suficiente para contratar a la banda");
         }
 
         return creada;
@@ -114,15 +131,21 @@ public class Escenario {
     
     public Banda getBanda(String nombre) {
         Banda b = bandas;
-        
+        Banda listaNueva = null;
+        Banda index = listaNueva;
         while (b != null) {
             if (b.getNombre().equals(nombre)) {
-                return b;
+                if (listaNueva == null) {
+                    listaNueva = b; 
+                } else {
+                    index.setLink(b);
+                    index = index.getLink();
+                }
             } else {
                 b = b.getLink();
             }
         }
-        return b;
+        return listaNueva;
     }
 
     public Escenario getUltimoEscenario() {
