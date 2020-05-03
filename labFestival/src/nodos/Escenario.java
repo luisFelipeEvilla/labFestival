@@ -37,7 +37,8 @@ public class Escenario {
         Agrega una nueva banda a la lista, y enseguida ordena la lista de forma descendente
         según el número de fans de cada banda
     */
-        public void addbanda(Banda nueva) {
+    public boolean addbanda(Banda nueva) {
+        boolean creada = false;
 
         int numBandas = contarBandas();
 
@@ -49,12 +50,15 @@ public class Escenario {
                     this.bandas = nueva;
                 }
                 presupuestoActual = presupuestoActual - nueva.getCosto();
+                creada = true;
             } else {
-                throw new RuntimeException("El escenario ya cuenta con el número máximo de bandas permitidas");
+                out.println("El escenario ya cuenta con el número máximo de bandas permitidas");
             }
         } else {
-            throw new RuntimeException("El escenario no cuenta con el dinero suficiente para contratar a la banda");
+            out.println("El escenario no cuenta con el dinero suficiente para contratar a la banda");
         }
+
+        return creada;
     }
     
     public void ordenarBandasDescente() {
@@ -130,8 +134,7 @@ public class Escenario {
         Banda listaNueva = null;
         Banda index = listaNueva;
         while (b != null) {
-            if (b.getNombre().equalsIgnoreCase(nombre)) {
-                System.out.println("Cierto");
+            if (b.getNombre().equals(nombre)) {
                 if (listaNueva == null) {
                     listaNueva = b; 
                 } else {
@@ -224,6 +227,5 @@ public class Escenario {
     public void setLink(Escenario link) {
         this.link = link;
     }
-    
 
 }
