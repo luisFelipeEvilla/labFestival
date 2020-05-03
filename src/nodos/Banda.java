@@ -14,7 +14,7 @@ public class Banda {
         this.numCanciones = numCanciones;
         this.costo = costo;
     }
-
+ 
     public void setLink(Banda b) {
         this.link = b;
     }

@@ -1,5 +1,7 @@
 package nodos;
 
+import static java.lang.System.out;
+import javax.print.DocFlavor;
 import personas.Patrocinador;
 
 public class Escenario {
@@ -19,9 +21,24 @@ public class Escenario {
         this.bandas = bandas;
         this.link = link;
     }
+    
+    public float getCostos() {
+        float acum = 0;
+        Banda b = bandas;
+        
+        while (b != null) {
+            acum += b.getCosto();
+            b = b.getLink();
+        }
+        
+        return acum;
+    }
 
-    public boolean addbanda(Banda nueva) {
-        boolean creada = false;
+    /* 
+        Agrega una nueva banda a la lista, y enseguida ordena la lista de forma descendente
+        según el número de fans de cada banda
+    */
+    public void addbanda(Banda nueva) {
 
         int numBandas = contarBandas();
 
@@ -33,15 +50,12 @@ public class Escenario {
                     this.bandas = nueva;
                 }
                 presupuestoActual = presupuestoActual - nueva.getCosto();
-                creada = true;
             } else {
-                System.out.println("El escenario ya cuenta con el número máximo de bandas permitidas");
+                throw new RuntimeException("El escenario ya cuenta con el número máximo de bandas permitidas");
             }
         } else {
-            System.out.println("El escenario no cuenta con el dinero suficiente para contratar a la banda");
+            throw new RuntimeException("El escenario no cuenta con el dinero suficiente para contratar a la banda");
         }
-
-        return creada;
     }
     
     public void ordenarBandasDescente() {
@@ -114,15 +128,22 @@ public class Escenario {
     
     public Banda getBanda(String nombre) {
         Banda b = bandas;
-        
+        Banda listaNueva = null;
+        Banda index = listaNueva;
         while (b != null) {
-            if (b.getNombre().equals(nombre)) {
-                return b;
+            if (b.getNombre().equalsIgnoreCase(nombre)) {
+                System.out.println("Cierto");
+                if (listaNueva == null) {
+                    listaNueva = b; 
+                } else {
+                    index.setLink(b);
+                    index = index.getLink();
+                }
             } else {
                 b = b.getLink();
             }
         }
-        return b;
+        return listaNueva;
     }
 
     public Escenario getUltimoEscenario() {
@@ -204,5 +225,6 @@ public class Escenario {
     public void setLink(Escenario link) {
         this.link = link;
     }
+    
 
 }
