@@ -1,7 +1,6 @@
 package nodos;
 
 import static java.lang.System.out;
-import javax.print.DocFlavor;
 import personas.Patrocinador;
 
 public class Escenario {
@@ -38,7 +37,7 @@ public class Escenario {
         Agrega una nueva banda a la lista, y enseguida ordena la lista de forma descendente
         según el número de fans de cada banda
     */
-    public void addbanda(Banda nueva) {
+        public void addbanda(Banda nueva) {
 
         int numBandas = contarBandas();
 
